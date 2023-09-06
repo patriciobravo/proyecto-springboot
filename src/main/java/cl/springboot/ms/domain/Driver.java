@@ -14,13 +14,15 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "driver")
 @SQLDelete(sql = "UPDATE drivers SET is_deleted=true, deleted_at=now() WHERE uuid=?")
 @Where(clause = "is_deleted is false")
-@Data
+@Getter
+@Setter
 public class Driver {
 	
 	@Id
