@@ -19,7 +19,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "driver")
-@SQLDelete(sql = "UPDATE drivers SET is_deleted=true, deleted_at=now() WHERE uuid=?")
+@SQLDelete(sql = "UPDATE driver SET is_deleted=true, deleted_at=now() WHERE uuid=?")
 @Where(clause = "is_deleted is false")
 @Getter
 @Setter

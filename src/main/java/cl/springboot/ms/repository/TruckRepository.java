@@ -7,11 +7,12 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import cl.springboot.ms.domain.Driver;
+import cl.springboot.ms.domain.Truck;
 
 @Repository
-public interface DriverRepository extends CrudRepository<Driver, UUID>{
+public interface TruckRepository extends CrudRepository<Truck, UUID>{
 	
-	 List<Driver> findAll();
+	List<Truck> findAll();
 	 
 
 }

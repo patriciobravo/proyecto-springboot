@@ -79,6 +79,7 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					
 				</configuration>
 			</plugin>
 		</plugins>

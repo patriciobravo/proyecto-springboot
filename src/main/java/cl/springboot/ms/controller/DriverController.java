@@ -4,19 +4,24 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import cl.springboot.ms.dto.response.DriverResponseDto;
+import cl.springboot.ms.dto.DriverRequestDto;
+import cl.springboot.ms.dto.DriverResponseDto;
 import cl.springboot.ms.service.DriverService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @RestController
 @RequestMapping("api/v1/driver")
-
 public class DriverController {
 
 	@Autowired
@@ -32,6 +37,24 @@ public class DriverController {
 	public DriverResponseDto findById(@PathVariable UUID uuid) {
 
 		return driverService.findByUuid(uuid);
+	}
+
+	@PostMapping
+	public DriverResponseDto save(@Valid @RequestBody DriverRequestDto request) {
+
+		return driverService.save(request);
+	}
+
+	@PutMapping
+	public DriverResponseDto update(@RequestBody DriverResponseDto request) {
+
+		return driverService.update(request);
+	}
+
+	@DeleteMapping("/{uuid}")
+	public Object delete(@PathVariable UUID uuid) {
+
+		return driverService.delete(uuid);
 	}
 
 }
