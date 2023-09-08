@@ -115,7 +115,7 @@ public class DriverMapper {
 	        return personResponseDto;
 	    }
 
-	public void updateDriver(DriverResponseDto request, Driver driver) {
+	public void updateDriver(DriverRequestDto request, Driver driver) {
 		
 
         if (Objects.nonNull(request.getName())) {

@@ -15,6 +15,8 @@ public class TruckResponseDto {
     
     private Boolean enabled;
     
+    private Boolean isDeleted;
+    
     private UUID uuidDriver;
     
    

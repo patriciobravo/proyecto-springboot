@@ -45,14 +45,14 @@ public class DriverController {
 		return driverService.save(request);
 	}
 
-	@PutMapping
-	public DriverResponseDto update(@RequestBody DriverResponseDto request) {
+	@PutMapping("/{uuid}")
+	public DriverResponseDto update(@PathVariable UUID uuid, @RequestBody DriverRequestDto request) {
 
-		return driverService.update(request);
+		return driverService.update(uuid, request);
 	}
 
 	@DeleteMapping("/{uuid}")
-	public Object delete(@PathVariable UUID uuid) {
+	public DriverResponseDto delete(@PathVariable UUID uuid) {
 
 		return driverService.delete(uuid);
 	}

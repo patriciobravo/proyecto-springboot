@@ -17,9 +17,11 @@ import cl.springboot.ms.repository.DriverRepository;
 import cl.springboot.ms.service.DriverService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @AllArgsConstructor
 @Service
+@Slf4j
 public class DriverServiceImpl implements DriverService {
 
 	@Autowired
@@ -68,9 +70,9 @@ public class DriverServiceImpl implements DriverService {
 
 
 	@Override
-	public DriverResponseDto update(DriverResponseDto request) {
+	public DriverResponseDto update(UUID uui, DriverRequestDto request) {
 
-		var driver = findById(request.getUuid());
+		var driver = findById(uui);
 
 		driverMapper.updateDriver(request, driver);
 
@@ -78,6 +80,8 @@ public class DriverServiceImpl implements DriverService {
 	}
 
 	private Driver findById(UUID uuid) {
+		
+		log.info("ID DE DRIVER   "+ uuid);
 
 		return driverRepository.findById(uuid)
 				.orElseThrow(() -> new NotFoundException(DomainExceptionCode.DRIVER_NOT_FOUND));

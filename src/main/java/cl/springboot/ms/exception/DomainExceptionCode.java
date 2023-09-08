@@ -8,7 +8,8 @@ import lombok.Getter;
 public enum DomainExceptionCode {
 
     DRIVER_NOT_FOUND(201, 404, "No se encontro Conductor con ese ID"),
-	DRIVER_NOT_FOUND_DELETE(201, 404, "No se encontro Conductor con ese ID para eliminar");
+    TRUCK_NOT_FOUND(201, 404, "No se encontro camión con ese ID");
+
    // ADDRESS_NOT_FOUND(202, 404, "address_not_found");
 
     private Integer codeApp;

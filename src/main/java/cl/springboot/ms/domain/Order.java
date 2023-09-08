@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,10 +39,8 @@ public class Order {
 	private Boolean isDeleted = Boolean.FALSE;
 
 	private LocalDateTime deletedAt;
-
-//	@OneToOne(fetch = FetchType.LAZY)
-//	private Driver driver;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	//@JoinColumn(name = "id_producto", nullable = false, foreignKey = @ForeignKey(name = "FK_venta_producto"))
 	private Truck truck;

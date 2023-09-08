@@ -17,7 +17,7 @@ public interface DriverService {
 
 	DriverResponseDto delete(UUID uuid);
 
-	DriverResponseDto update(DriverResponseDto request);
+	DriverResponseDto update(UUID uuid, DriverRequestDto request);
 
 
 	

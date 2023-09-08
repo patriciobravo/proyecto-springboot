@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cl.springboot.ms.domain.Driver;
+import cl.springboot.ms.domain.Truck;
 import cl.springboot.ms.dto.TruckRequestDto;
 import cl.springboot.ms.dto.TruckResponseDto;
 import cl.springboot.ms.exception.DomainExceptionCode;
@@ -18,9 +19,11 @@ import cl.springboot.ms.repository.TruckRepository;
 import cl.springboot.ms.service.TruckService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @AllArgsConstructor
 @Service
+@Slf4j
 public class TruckServiceImpl implements TruckService {
 
 	@Autowired
@@ -38,22 +41,23 @@ public class TruckServiceImpl implements TruckService {
 		return truckRepository.findAll().stream().map(truck -> truckMapper.toResponseTruckDto(truck))
 				.collect(Collectors.toList());
 	}
-//
-//	@Override
-//	public DriverResponseDto findByUuid(UUID uuid) {
-//		
-//		//Driver driver = driverRepository.findById(uuid).orElseThrow(() -> new NotFoundException(DomainExceptionCode.DRIVER_NOT_FOUND));	
-//		Driver driver = findById(uuid);
-//		
-//		return driverMapper.toResponseDriverDto(driver);
-//	}
+
+	@Override
+	public TruckResponseDto findByUuid(UUID uuid) {
+		
+		Truck truck = truckRepository.findById(uuid).orElseThrow(() -> new NotFoundException(DomainExceptionCode.TRUCK_NOT_FOUND));	
+		log.info("TRUCK RECUPERADO " + truck);
+		
+		return truckMapper.toResponseTruckDto(truck);
+	}
 
 	@Override
 	public TruckResponseDto save(@Valid TruckRequestDto request) {
 		
-		Driver driver = findById(request.getUuidDriver());
+		Driver driver = findById(request.getUuidDriver());		
+		//log.info("VALIDATEDRIVER "  +validateDriver(driver.getUuid()));
 		
-		if(!driver.getIsDeleted()) {
+		if(!driver.getIsDeleted() /*&& !validateDriver(driver.getUuid())*/) {
 			
 			truckRepository.save(truckMapper.toTruck(driver,request));
 			
@@ -64,32 +68,58 @@ public class TruckServiceImpl implements TruckService {
 		
 	}
 
-//	@Override
-//	public DriverResponseDto delete(UUID uuid) {
-//
-//		Driver driver = findById(uuid);
+//	private boolean validateDriver(UUID uuid) {
+//		log.info("Ingreso a validar driver");
+//		List<TruckResponseDto> trucks = findAll();
 //		
-//		//if(driver != null){
-//			driverRepository.delete(driver);
-//		//}
-//
-//		return driverMapper.toResponseDriverDto(driver);
+//		log.info("Ingreso a validar driver " + trucks);
+//		for (TruckResponseDto t : trucks) {
+//			if(t.getUuidDriver().equals(uuid)) {
+//				log.info("camion tiene asociado un driver");
+//				return new NotFoundException(DomainExceptionCode.TRUCK_NOT_FOUND);
+//				 return true;
+//			}
+//		}
+//		// TODO Auto-generated method stub
+//		return false;
 //	}
-//
-//
-//	@Override
-//	public DriverResponseDto update(DriverResponseDto request) {
-//
-//		var driver = findById(request.getUuid());
-//
-//		driverMapper.updateDriver(request, driver);
-//
-//		return driverMapper.toDriverResponseDto(driverRepository.save(driver));
-//	}
-//
-	private Driver findById(UUID uuid) {
 
+	@Override
+	public TruckResponseDto delete(UUID uuid) {
+
+		//Driver driver = findById(uuid);
+		Truck truck = truckRepository.findById(uuid).orElseThrow(() -> new NotFoundException(DomainExceptionCode.TRUCK_NOT_FOUND));	
+		
+		//if(driver != null){
+		truckRepository.delete(truck);
+		//}
+
+		return truckMapper.toResponseTruckDto(truck);
+	}
+
+
+	@Override
+	public TruckResponseDto update(UUID uui,TruckRequestDto request) {
+
+		log.info("INGRESO ACA BUSCADO DIRVER");
+		Driver driver = findById(request.getUuidDriver());	
+		
+		log.info("DRIVER BUSCADO  " + request.getUuidDriver());
+		
+	//	Truck truck = truckRepository.findById(uui).orElseThrow(() -> new NotFoundException(DomainExceptionCode.TRUCK_NOT_FOUND));	
+		
+
+		
+		//truckMapper.update(request, truck,driver);
+		
+		truckRepository.save(truckMapper.toTruckUpdate(uui, driver,request));
+		return null;
+	}
+
+	private Driver findById(UUID uuid) {
+		log.info("ID DE DRIVER   "+ uuid);
 		return driverRepository.findById(uuid)
 				.orElseThrow(() -> new NotFoundException(DomainExceptionCode.DRIVER_NOT_FOUND));
-	}
+	}	
+
 }
