@@ -2,10 +2,7 @@ package cl.springboot.ms.domain;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
@@ -36,15 +33,7 @@ public class OrderProduct {
 	
 	private Boolean isDeleted = Boolean.FALSE;
 	private LocalDateTime deletedAt;
-	
-	@Column(length = 100)
-    @Enumerated(EnumType.STRING)
-    private StatusType status = StatusType.LOADED;
 
-
-
-//	@OneToOne(fetch = FetchType.LAZY)
-//	private Driver driver;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id", nullable = false, foreignKey=@ForeignKey(name = "fk_order_id"))
@@ -53,7 +42,7 @@ public class OrderProduct {
   
 	public OrderProduct() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 
@@ -150,18 +139,6 @@ public class OrderProduct {
 
 	public void setDeletedAt(LocalDateTime deletedAt) {
 		this.deletedAt = deletedAt;
-	}
-
-
-
-	public StatusType getStatus() {
-		return status;
-	}
-
-
-
-	public void setStatus(StatusType status) {
-		this.status = status;
 	}
 
 

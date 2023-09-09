@@ -21,7 +21,7 @@ public class DriverRequestDto {
     
     private String code;
 
-    @Schema(example = "Prueba")
+    @Schema(example = "958641094")
     @Size(min = 9, max = 9, message = "El tamaño del telefono es incorrecto")
     @NotEmpty(message = "telefono no puede ser vacio")
     private String cellphone;

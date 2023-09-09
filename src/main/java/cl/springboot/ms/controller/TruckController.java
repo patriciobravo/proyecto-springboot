@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import cl.springboot.ms.dto.TruckRequestDto;
 import cl.springboot.ms.dto.TruckResponseDto;
 import cl.springboot.ms.service.TruckService;
+
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 

@@ -46,8 +46,7 @@ public class TruckServiceImpl implements TruckService {
 	public TruckResponseDto findByUuid(UUID uuid) {
 		
 		Truck truck = truckRepository.findById(uuid).orElseThrow(() -> new NotFoundException(DomainExceptionCode.TRUCK_NOT_FOUND));	
-		log.info("TRUCK RECUPERADO " + truck);
-		
+				
 		return truckMapper.toResponseTruckDto(truck);
 	}
 
@@ -101,10 +100,9 @@ public class TruckServiceImpl implements TruckService {
 	@Override
 	public TruckResponseDto update(UUID uui,TruckRequestDto request) {
 
-		log.info("INGRESO ACA BUSCADO DIRVER");
+		
 		Driver driver = findById(request.getUuidDriver());	
 		
-		log.info("DRIVER BUSCADO  " + request.getUuidDriver());
 		
 	//	Truck truck = truckRepository.findById(uui).orElseThrow(() -> new NotFoundException(DomainExceptionCode.TRUCK_NOT_FOUND));	
 		

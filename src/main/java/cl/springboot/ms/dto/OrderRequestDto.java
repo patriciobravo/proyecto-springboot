@@ -4,61 +4,23 @@ import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import cl.springboot.ms.domain.OrderProduct;
-import cl.springboot.ms.domain.StatusType;
-import cl.springboot.ms.domain.Truck;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import lombok.Data;
 
 
 public class OrderRequestDto {
 	
-
-	//private long idOrder;
-
 	private String code;
 	
 	double weight;
 	
 	private LocalDateTime schedule;
 	
-	
-    private StatusType status = StatusType.LOADED;
-
-	private Boolean isDeleted = Boolean.FALSE;
-
 	private LocalDateTime deletedAt;	
 	
 	private UUID uuidTruck;
 	
 	private Set<OrderProduct> order_products;
-
-//	public long getIdOrder() {
-//		return idOrder;
-//	}
-//
-//	public void setIdOrder(long idOrder) {
-//		this.idOrder = idOrder;
-//	}
-
-	public UUID getUuidTruck() {
-		return uuidTruck;
-	}
-
-	public void setUuidTruck(UUID uuidTruck) {
-		this.uuidTruck = uuidTruck;
-	}
 
 	public String getCode() {
 		return code;
@@ -84,22 +46,6 @@ public class OrderRequestDto {
 		this.schedule = schedule;
 	}
 
-	public StatusType getStatus() {
-		return status;
-	}
-
-	public void setStatus(StatusType status) {
-		this.status = status;
-	}
-
-	public Boolean getIsDeleted() {
-		return isDeleted;
-	}
-
-	public void setIsDeleted(Boolean isDeleted) {
-		this.isDeleted = isDeleted;
-	}
-
 	public LocalDateTime getDeletedAt() {
 		return deletedAt;
 	}
@@ -108,7 +54,13 @@ public class OrderRequestDto {
 		this.deletedAt = deletedAt;
 	}
 
-	
+	public UUID getUuidTruck() {
+		return uuidTruck;
+	}
+
+	public void setUuidTruck(UUID uuidTruck) {
+		this.uuidTruck = uuidTruck;
+	}
 
 	public Set<OrderProduct> getOrder_products() {
 		return order_products;
@@ -118,10 +70,22 @@ public class OrderRequestDto {
 		this.order_products = order_products;
 	}
 
+	public OrderRequestDto(String code, double weight, LocalDateTime schedule, LocalDateTime deletedAt, UUID uuidTruck,
+			Set<OrderProduct> order_products) {
+		super();
+		this.code = code;
+		this.weight = weight;
+		this.schedule = schedule;
+		this.deletedAt = deletedAt;
+		this.uuidTruck = uuidTruck;
+		this.order_products = order_products;
+	}
+
 	public OrderRequestDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	
 	
 

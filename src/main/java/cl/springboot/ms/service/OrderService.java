@@ -10,6 +10,6 @@ public interface OrderService {
 
 	OrderRequestDto update(Long uuid, StatusType state);
 
-	OrderRequestDto delete(Long uuid, @Valid OrderRequestDto request);
+	String delete(Long uuid, @Valid OrderRequestDto request);
 
 }
