@@ -1,11 +1,18 @@
 package cl.springboot.ms.controller;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import cl.springboot.ms.domain.StatusType;
+import cl.springboot.ms.dto.DriverResponseDto;
 import cl.springboot.ms.dto.OrderRequestDto;
 import cl.springboot.ms.service.OrderService;
 import jakarta.validation.Valid;
@@ -22,7 +29,22 @@ public class RegisterOrderController {
 	
 	@PostMapping
 	public OrderRequestDto save(@Valid @RequestBody OrderRequestDto request) {
+		
 		return orderService.save(request);
 	}
+	
+	@PutMapping("/{uuid}/{state}")
+	public OrderRequestDto update(@PathVariable Long uuid, @PathVariable StatusType state) {
+
+		return orderService.update(uuid, state);
+	}
+	
+	
+	@DeleteMapping("/{uuid}")
+	public OrderRequestDto delete(@PathVariable Long uuid, @Valid @RequestBody OrderRequestDto request) {
+
+		return orderService.delete(uuid, request);
+	}
+	
 
 }

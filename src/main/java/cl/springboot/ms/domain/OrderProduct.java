@@ -1,25 +1,28 @@
 package cl.springboot.ms.domain;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.Data;
 
 @Entity
 @Table(name ="order_products")
-@Data
 public class OrderProduct {
 	
+	
 	@Id
-	private UUID uuid = UUID.randomUUID();
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long idOrderProduct;
 
 	private String code;
 	
@@ -44,7 +47,137 @@ public class OrderProduct {
 //	private Driver driver;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	//@JoinColumn(name = "id_producto", nullable = false, foreignKey = @ForeignKey(name = "FK_venta_producto"))
+	@JoinColumn(name = "order_id", nullable = false, foreignKey=@ForeignKey(name = "fk_order_id"))
 	private Order order;
+
+  
+	public OrderProduct() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+	public long getIdOrderProduct() {
+		return idOrderProduct;
+	}
+
+
+
+	public void setIdOrderProduct(long idOrderProduct) {
+		this.idOrderProduct = idOrderProduct;
+	}
+
+
+
+	public String getCode() {
+		return code;
+	}
+
+
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+
+
+	public double getWeight() {
+		return weight;
+	}
+
+
+
+	public void setWeight(double weight) {
+		this.weight = weight;
+	}
+
+
+
+	public String getSku() {
+		return sku;
+	}
+
+
+
+	public void setSku(String sku) {
+		this.sku = sku;
+	}
+
+
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+
+
+	public LocalDateTime getSchedule() {
+		return schedule;
+	}
+
+
+
+	public void setSchedule(LocalDateTime schedule) {
+		this.schedule = schedule;
+	}
+
+
+
+	public Boolean getIsDeleted() {
+		return isDeleted;
+	}
+
+
+
+	public void setIsDeleted(Boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
+
+
+	public LocalDateTime getDeletedAt() {
+		return deletedAt;
+	}
+
+
+
+	public void setDeletedAt(LocalDateTime deletedAt) {
+		this.deletedAt = deletedAt;
+	}
+
+
+
+	public StatusType getStatus() {
+		return status;
+	}
+
+
+
+	public void setStatus(StatusType status) {
+		this.status = status;
+	}
+
+
+
+	public Order getOrder() {
+		return order;
+	}
+
+
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+
+
+
+	
 
 }
