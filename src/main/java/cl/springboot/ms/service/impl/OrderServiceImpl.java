@@ -62,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
 		
 		Order order = modelMapper.map(request, Order.class);
 				
-		order.getOrder_products().forEach(next -> {
+		order.getOrder_product().forEach(next -> {
 			next.setOrder(order);
 		});
 

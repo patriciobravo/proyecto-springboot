@@ -21,7 +21,7 @@ public class OrderMapper {
 		Order order = modelMapper.map(request, Order.class);
 		log.info("orderSaved" + order);
 		
-		order.getOrder_products().forEach(next -> {
+		order.getOrder_product().forEach(next -> {
 			next.setOrder(order);
 		});
 

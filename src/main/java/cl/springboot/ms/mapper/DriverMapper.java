@@ -25,8 +25,8 @@ public class DriverMapper {
 
 		var driverResponseDto = new DriverResponseDto();
 
-		if (Objects.nonNull(driver.getUuid())) {
-			driverResponseDto.setUuid(driver.getUuid());
+		if (Objects.nonNull(driver.getIdDriver())) {
+			driverResponseDto.setIdDriver(driver.getIdDriver());
 		}
 
 		if (Objects.nonNull(driver.getName())) {
@@ -92,8 +92,8 @@ public class DriverMapper {
 
 	        var personResponseDto = new DriverResponseDto();
 
-	        if (Objects.nonNull(driver.getUuid())) {
-	            personResponseDto.setUuid(driver.getUuid());
+	        if (Objects.nonNull(driver.getIdDriver())) {
+	            personResponseDto.setIdDriver(driver.getIdDriver());
 	        }
 
 	        if (Objects.nonNull(driver.getName())) {

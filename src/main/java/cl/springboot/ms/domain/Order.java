@@ -13,9 +13,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -46,12 +48,13 @@ public class Order {
 	
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
-		private Truck truck;
+	  @JoinColumn(name = "id_truck", nullable = false, foreignKey=@ForeignKey(name = "fk_id_truck"))
+	private Truck truck;
 	
 	//@JsonIgnore
 	@JsonBackReference
 	@OneToMany(mappedBy = "order", cascade =  CascadeType.ALL , orphanRemoval = true)
-	private Set<OrderProduct> order_products = new HashSet<>();
+	private Set<OrderProduct> order_product = new HashSet<>();
 	
 }
 

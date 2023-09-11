@@ -1,7 +1,7 @@
 package cl.springboot.ms.service.impl;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class TruckServiceImpl implements TruckService {
 
 	@Autowired
 	private final TruckRepository truckRepository;
-	
+
 	@Autowired
 	private final DriverRepository driverRepository;
 
@@ -43,28 +43,36 @@ public class TruckServiceImpl implements TruckService {
 	}
 
 	@Override
-	public TruckResponseDto findByUuid(UUID uuid) {
-		
-		Truck truck = truckRepository.findById(uuid).orElseThrow(() -> new NotFoundException(DomainExceptionCode.TRUCK_NOT_FOUND));	
-				
+	public TruckResponseDto findByUuid(Long uuid) {
+
+		Truck truck = truckRepository.findById(uuid)
+				.orElseThrow(() -> new NotFoundException(DomainExceptionCode.TRUCK_NOT_FOUND));
+
 		return truckMapper.toResponseTruckDto(truck);
 	}
 
 	@Override
 	public TruckResponseDto save(@Valid TruckRequestDto request) {
-		
-		Driver driver = findById(request.getUuidDriver());		
-		//log.info("VALIDATEDRIVER "  +validateDriver(driver.getUuid()));
-		
-		if(!driver.getIsDeleted() /*&& !validateDriver(driver.getUuid())*/) {
-			
-			truckRepository.save(truckMapper.toTruck(driver,request));
-			
-		}
-		return null;
-	
 
-		
+		Driver driver = findById(request.getIdDriver());
+		Optional<Truck> truck = truckRepository.findByDriver(driver);
+		Optional<Truck> truckExist = truckRepository.findByCode(request.getCode());
+
+		if (truckExist.isPresent()) {
+			throw new NotFoundException(DomainExceptionCode.TRUCK_EXIST);
+		}
+
+		if (truck.isPresent()) {
+			log.info("driver en camion" + truck.get().getIdTruck());
+			log.info("driver en camion" + truck.get().getDriver());
+			throw new NotFoundException(DomainExceptionCode.DRIVER_IN_TRUCK);
+
+		}
+
+		Truck truckSaved = truckRepository.save(truckMapper.toTruck(driver, request));
+
+		return truckMapper.toResponseTruckDto(truckSaved);
+
 	}
 
 //	private boolean validateDriver(UUID uuid) {
@@ -84,40 +92,40 @@ public class TruckServiceImpl implements TruckService {
 //	}
 
 	@Override
-	public TruckResponseDto delete(UUID uuid) {
+	public TruckResponseDto delete(Long uuid) {
 
-		//Driver driver = findById(uuid);
-		Truck truck = truckRepository.findById(uuid).orElseThrow(() -> new NotFoundException(DomainExceptionCode.TRUCK_NOT_FOUND));	
-		
-		//if(driver != null){
+		// Driver driver = findById(uuid);
+		Truck truck = truckRepository.findById(uuid)
+				.orElseThrow(() -> new NotFoundException(DomainExceptionCode.TRUCK_NOT_FOUND));
+
+		// if(driver != null){
 		truckRepository.delete(truck);
-		//}
+		// }
 
 		return truckMapper.toResponseTruckDto(truck);
 	}
 
-
 	@Override
-	public TruckResponseDto update(UUID uui,TruckRequestDto request) {
+	public TruckResponseDto update(Long uui, TruckRequestDto request) {
 
-		
-		Driver driver = findById(request.getUuidDriver());	
-		
-		
-	//	Truck truck = truckRepository.findById(uui).orElseThrow(() -> new NotFoundException(DomainExceptionCode.TRUCK_NOT_FOUND));	
-		
+		Driver driver = findById(request.getIdDriver());
 
+		Optional<Truck> truckExist = truckRepository.findByCode(request.getCode());
 		
-		//truckMapper.update(request, truck,driver);
-		
-		truckRepository.save(truckMapper.toTruckUpdate(uui, driver,request));
-		return null;
+		if (truckExist.isPresent() && truckExist.get().getIdTruck() != (uui)) {
+			
+			throw new NotFoundException(DomainExceptionCode.TRUCK_EXIST);
+		}
+
+		Truck truck = truckMapper.toTruckUpdate(uui, driver, request);
+	
+		return truckMapper.toResponseTruckDto(	truckRepository.save(truck));
 	}
 
-	private Driver findById(UUID uuid) {
-		log.info("ID DE DRIVER   "+ uuid);
+	private Driver findById(Long uuid) {
+		log.info("ID DE DRIVER   " + uuid);
 		return driverRepository.findById(uuid)
 				.orElseThrow(() -> new NotFoundException(DomainExceptionCode.DRIVER_NOT_FOUND));
-	}	
+	}
 
 }

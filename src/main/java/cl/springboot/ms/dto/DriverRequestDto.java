@@ -19,11 +19,16 @@ public class DriverRequestDto {
 	@Email(message = "email debe ser valido")
     private String email;
     
+	@Schema(example = "190252000")
+    @Size(min = 8, max = 9, message = "El tamaño del codigo no es correcto")
+    @NotEmpty(message = "codigo no puede ser vacio")
     private String code;
 
     @Schema(example = "958641094")
     @Size(min = 9, max = 9, message = "El tamaño del telefono es incorrecto")
     @NotEmpty(message = "telefono no puede ser vacio")
     private String cellphone;
+    
+    private TruckRequestDto truck;
 
 }

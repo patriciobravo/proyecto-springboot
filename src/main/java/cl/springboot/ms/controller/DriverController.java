@@ -1,7 +1,6 @@
 package cl.springboot.ms.controller;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,14 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 import cl.springboot.ms.dto.DriverRequestDto;
 import cl.springboot.ms.dto.DriverResponseDto;
 import cl.springboot.ms.service.DriverService;
-
+import cl.springboot.ms.swagger.DriverSwagger;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @RestController
 @RequestMapping("api/v1/driver")
-public class DriverController  {
+public class DriverController implements DriverSwagger {
 
 	@Autowired
 	private final DriverService driverService;
@@ -35,7 +34,7 @@ public class DriverController  {
 	}
 
 	@GetMapping("/{uuid}")
-	public DriverResponseDto findById(@PathVariable UUID uuid) {
+	public DriverResponseDto findById(@PathVariable Long uuid) {
 
 		return driverService.findByUuid(uuid);
 	}
@@ -47,13 +46,13 @@ public class DriverController  {
 	}
 
 	@PutMapping("/{uuid}")
-	public DriverResponseDto update(@PathVariable UUID uuid, @RequestBody DriverRequestDto request) {
+	public DriverResponseDto update(@PathVariable Long uuid, @RequestBody DriverRequestDto request) {
 
 		return driverService.update(uuid, request);
 	}
 
 	@DeleteMapping("/{uuid}")
-	public DriverResponseDto delete(@PathVariable UUID uuid) {
+	public DriverResponseDto delete(@PathVariable Long uuid) {
 
 		return driverService.delete(uuid);
 	}

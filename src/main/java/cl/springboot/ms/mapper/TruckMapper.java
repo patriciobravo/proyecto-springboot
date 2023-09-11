@@ -2,7 +2,6 @@ package cl.springboot.ms.mapper;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
@@ -27,7 +26,7 @@ public class TruckMapper {
 			truck.setCode(request.getCode());
 		}
 
-		if (Objects.nonNull(request.getUuidDriver())) {
+		if (Objects.nonNull(request.getIdDriver())) {
 			truck.setDriver(driver);
 		}
 
@@ -43,16 +42,16 @@ public class TruckMapper {
 
 		TruckResponseDto truckResponseDto = new TruckResponseDto();
 
-		if (Objects.nonNull(truck.getUuid())) {
-			truckResponseDto.setUuid(truck.getUuid());
+		if (Objects.nonNull(truck.getIdTruck())) {
+			truckResponseDto.setIdTruck(truck.getIdTruck());
 		}
 
 		if (Objects.nonNull(truck.getCode())) {
 			truckResponseDto.setCode(truck.getCode());
 		}
 		
-		if (Objects.nonNull(truck.getDriver().getUuid())) {
-			truckResponseDto.setUuidDriver(truck.getDriver().getUuid());
+		if (Objects.nonNull(truck.getDriver().getIdDriver())) {
+			truckResponseDto.setIdDriver(truck.getDriver().getIdDriver());
 		}
 
 		if (Objects.nonNull(truck.getEnabled())) {
@@ -72,16 +71,16 @@ public class TruckMapper {
 		
 		TruckResponseDto truckResponseDto = new TruckResponseDto();
 
-		if (Objects.nonNull(truck.get().getUuid())) {
-			truckResponseDto.setUuid(truck.get().getUuid());
+		if (Objects.nonNull(truck.get().getIdTruck())) {
+			truckResponseDto.setIdTruck(truck.get().getIdTruck());
 		}
 
 		if (Objects.nonNull(truck.get().getCode())) {
 			truckResponseDto.setCode(truck.get().getCode());
 		}
 		
-		if (Objects.nonNull(truck.get().getDriver().getUuid())) {
-			truckResponseDto.setUuidDriver(truck.get().getDriver().getUuid());
+		if (Objects.nonNull(truck.get().getDriver().getIdDriver())) {
+			truckResponseDto.setIdDriver(truck.get().getDriver().getIdDriver());
 		}
 
 		if (Objects.nonNull(truck.get().getEnabled())) {
@@ -93,7 +92,7 @@ public class TruckMapper {
 		return truckResponseDto;
 	}
 
-	public Truck toTruckUpdate(UUID uui, Driver driver, TruckRequestDto request) {
+	public Truck toTruckUpdate(Long uui, Driver driver, TruckRequestDto request) {
 		if (request == null) {
 			return null;
 		}
@@ -101,7 +100,7 @@ public class TruckMapper {
 		Truck truck = new Truck();
 		
 		if (Objects.nonNull(uui)) {
-			truck.setUuid(uui);
+			truck.setIdTruck(uui);
 		}
 
 
@@ -109,7 +108,7 @@ public class TruckMapper {
 			truck.setCode(request.getCode());
 		}
 
-		if (Objects.nonNull(request.getUuidDriver())) {
+		if (Objects.nonNull(request.getIdDriver())) {
 			truck.setDriver(driver);
 		}
 		

@@ -1,14 +1,12 @@
 package cl.springboot.ms.dto;
 
-import java.util.UUID;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
 public class TruckResponseDto {
 	
-	private UUID uuid;
+	private long idTruck;
 	
 	@Schema(example = "XXXXX")
     private String code;
@@ -17,7 +15,7 @@ public class TruckResponseDto {
     
     private Boolean isDeleted;
     
-    private UUID uuidDriver;
+    private long idDriver;
     
    
 

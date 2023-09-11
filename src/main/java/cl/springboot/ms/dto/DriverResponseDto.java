@@ -1,7 +1,5 @@
 package cl.springboot.ms.dto;
 
-import java.util.UUID;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +10,7 @@ import lombok.ToString;
 @ToString
 public class DriverResponseDto {
 
-	private UUID uuid;
+	private long idDriver;
 
 	@Schema(example = "Prueba")
 	private String name;

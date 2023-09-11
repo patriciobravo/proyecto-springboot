@@ -11,9 +11,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
 @Table(name ="order_products")
+@Data
 public class OrderProduct {
 	
 	
@@ -36,125 +38,10 @@ public class OrderProduct {
 
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "order_id", nullable = false, foreignKey=@ForeignKey(name = "fk_order_id"))
+	@JoinColumn(name = "id_order", nullable = false, foreignKey=@ForeignKey(name = "fk_id_order"))
 	private Order order;
 
   
-	public OrderProduct() {
-		super();
-		
-	}
-
-
-
-	public long getIdOrderProduct() {
-		return idOrderProduct;
-	}
-
-
-
-	public void setIdOrderProduct(long idOrderProduct) {
-		this.idOrderProduct = idOrderProduct;
-	}
-
-
-
-	public String getCode() {
-		return code;
-	}
-
-
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-
-
-	public double getWeight() {
-		return weight;
-	}
-
-
-
-	public void setWeight(double weight) {
-		this.weight = weight;
-	}
-
-
-
-	public String getSku() {
-		return sku;
-	}
-
-
-
-	public void setSku(String sku) {
-		this.sku = sku;
-	}
-
-
-
-	public Integer getQuantity() {
-		return quantity;
-	}
-
-
-
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
-
-
-
-	public LocalDateTime getSchedule() {
-		return schedule;
-	}
-
-
-
-	public void setSchedule(LocalDateTime schedule) {
-		this.schedule = schedule;
-	}
-
-
-
-	public Boolean getIsDeleted() {
-		return isDeleted;
-	}
-
-
-
-	public void setIsDeleted(Boolean isDeleted) {
-		this.isDeleted = isDeleted;
-	}
-
-
-
-	public LocalDateTime getDeletedAt() {
-		return deletedAt;
-	}
-
-
-
-	public void setDeletedAt(LocalDateTime deletedAt) {
-		this.deletedAt = deletedAt;
-	}
-
-
-
-	public Order getOrder() {
-		return order;
-	}
-
-
-
-	public void setOrder(Order order) {
-		this.order = order;
-	}
-
-
-
 	
 
 }

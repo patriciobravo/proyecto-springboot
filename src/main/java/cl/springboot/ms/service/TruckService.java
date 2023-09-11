@@ -1,7 +1,6 @@
 package cl.springboot.ms.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import cl.springboot.ms.dto.TruckRequestDto;
 import cl.springboot.ms.dto.TruckResponseDto;
@@ -13,11 +12,11 @@ public interface TruckService {
 
 	List<TruckResponseDto> findAll();
 
-	TruckResponseDto findByUuid(UUID uuid);
+	TruckResponseDto findByUuid(Long uuid);
 
-	TruckResponseDto update(UUID uui, @Valid TruckRequestDto request);
+	TruckResponseDto update(Long uui, @Valid TruckRequestDto request);
 
-	TruckResponseDto delete(UUID uuid);
+	TruckResponseDto delete(Long uuid);
 
 
 
