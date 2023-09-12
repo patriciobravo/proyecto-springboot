@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 import cl.springboot.ms.domain.StatusType;
 import cl.springboot.ms.dto.OrderRequestDto;
 import cl.springboot.ms.service.OrderService;
-
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @RestController
 @RequestMapping("api/v1/package")
+
 public class RegisterOrderController  {
 	
 	@Autowired

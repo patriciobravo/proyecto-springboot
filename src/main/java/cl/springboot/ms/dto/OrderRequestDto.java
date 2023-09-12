@@ -4,9 +4,11 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 import cl.springboot.ms.domain.OrderProduct;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class OrderRequestDto {
 	
 	private String code;
@@ -17,8 +19,8 @@ public class OrderRequestDto {
 	
 	private LocalDateTime deletedAt;	
 	
-	private Long uuidTruck;
+	private Long idTruck;
 	
-	private Set<OrderProduct> order_products;
+	private Set<OrderProduct> order_products;	
 
 }

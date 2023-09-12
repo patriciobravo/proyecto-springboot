@@ -18,10 +18,11 @@ import cl.springboot.ms.repository.TruckRepository;
 import cl.springboot.ms.service.OrderService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @AllArgsConstructor
 @Service
-
+@Slf4j
 public class OrderServiceImpl implements OrderService {
 
 	@Autowired
@@ -43,14 +44,17 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public OrderRequestDto save(OrderRequestDto request) {
 		
-		Truck truck = truckRepository.findById(request.getUuidTruck())
+		Truck truck = truckRepository.findById(request.getIdTruck())
 				.orElseThrow(() -> new NotFoundException(DomainExceptionCode.TRUCK_NOT_FOUND));
 		
 
 		Order order = mapearEntidadOrder(request, truck);
+		//log.info("ORDER FORMATEADA   "+ order);
+		
 
 		Order orderSaved = orderRepository.save(order);
 		return mapearOrderRequestDto(orderSaved);
+		//return null;
 	}
 
 	private OrderRequestDto mapearOrderRequestDto(Order orderSaved) {
@@ -60,11 +64,14 @@ public class OrderServiceImpl implements OrderService {
 
 	private Order mapearEntidadOrder(OrderRequestDto request, Truck truck) {
 		
+		
 		Order order = modelMapper.map(request, Order.class);
 				
-		order.getOrder_product().forEach(next -> {
+		order.getOrder_products().forEach(next -> {
+			log.info("PASANDO POR ACA   "+ next.getOrder());
 			next.setOrder(order);
 		});
+		log.info("ORDER FORMATEADA   "+ request.getOrder_products());
 
 		order.setTruck(truck);
 

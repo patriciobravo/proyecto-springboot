@@ -4,20 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import cl.springboot.ms.domain.Truck;
 
-@Repository
 public interface TruckRepository extends JpaRepository<Truck, Long>{
 	
 	List<Truck> findAll();
 
-
-
 	Optional<Truck> findByDriver(Object driver);
-
-
 
 	Optional<Truck> findByCode(String code);
 

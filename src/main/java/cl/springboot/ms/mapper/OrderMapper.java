@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import cl.springboot.ms.domain.Order;
 import cl.springboot.ms.domain.Truck;
 import cl.springboot.ms.dto.OrderRequestDto;
-import cl.springboot.ms.service.impl.OrderServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 
 @Component
@@ -21,7 +20,7 @@ public class OrderMapper {
 		Order order = modelMapper.map(request, Order.class);
 		log.info("orderSaved" + order);
 		
-		order.getOrder_product().forEach(next -> {
+		order.getOrder_products().forEach(next -> {
 			next.setOrder(order);
 		});
 

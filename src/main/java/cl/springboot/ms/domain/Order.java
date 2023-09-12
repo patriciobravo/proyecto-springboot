@@ -21,10 +21,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "orders")
 public class Order {
 	
@@ -54,7 +56,7 @@ public class Order {
 	//@JsonIgnore
 	@JsonBackReference
 	@OneToMany(mappedBy = "order", cascade =  CascadeType.ALL , orphanRemoval = true)
-	private Set<OrderProduct> order_product = new HashSet<>();
+	private Set<OrderProduct> order_products = new HashSet<>();
 	
 }
 
