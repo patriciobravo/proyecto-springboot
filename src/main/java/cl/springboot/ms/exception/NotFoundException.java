@@ -10,4 +10,5 @@ public class NotFoundException extends DomainException {
 	public NotFoundException(DomainExceptionCode code) {
         super(code);
     }
+
 }

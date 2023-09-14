@@ -16,8 +16,6 @@ public enum DomainExceptionCode {
 	DRIVER_NOT_DELETE(201, 200, "Conductor se encuentra agregado a un camión, no se puede eliminar"),
 	DRIVER_EXIST(201, 200, "Conductor ya se encuentra agregado con ese codigo"),
 	TRUCK_EXIST(201, 200, "Camion ya se encuentra agregado con ese patente");
-	
-
     private Integer codeApp;
 
     private Integer statusCode;

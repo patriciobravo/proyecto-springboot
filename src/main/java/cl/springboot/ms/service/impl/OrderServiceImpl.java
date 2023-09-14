@@ -1,8 +1,11 @@
 package cl.springboot.ms.service.impl;
 
 
+import cl.springboot.ms.domain.OrderProduct;
+import cl.springboot.ms.dto.OrderProductDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import cl.springboot.ms.domain.Order;
@@ -19,6 +22,10 @@ import cl.springboot.ms.service.OrderService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -95,10 +102,28 @@ public class OrderServiceImpl implements OrderService {
 		orderRepository.findByIdOrderAndStatus(uuid, StatusType.LOADED)
 				.orElseThrow(() -> new NotFoundException(DomainExceptionCode.ORDER_NOT_LOADED));
 
-		orderProductRepository.deleteAll(request.getOrder_products());
-		
-		
-		
+	//	orderProductRepository.findAll((Pageable) request.getOrder_products()..orElseThrow(() -> new NotFoundException(DomainExceptionCode.ORDER_NOT_LOADED)););
+		List<String> ListNot = new ArrayList<String>();
+		log.info(ListNot.toString());
+		for (OrderProduct p : request.getOrder_products()) {
+			Optional<Object> prod = orderProductRepository.findByIdOrderProduct(p.getIdOrderProduct());
+			if (prod.isPresent()) {
+
+				orderProductRepository.delete(p);
+
+			} else {
+				ListNot.add(Long.toString(p.getIdOrderProduct()));
+			}
+
+
+			log.info(ListNot.toString());
+			//.orElseThrow(() -> new NotFoundException(DomainExceptionCode.PRODUCT_EXIST));
+
+		}
+
+		if(!ListNot.isEmpty()){
+			return  "Los productos "+ ListNot + " No se pudieron eliminaron. No se encuentran en Orden N° "+ uuid;
+		}
 
 		return "Productos eliminados";
 	}

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +19,10 @@ import cl.springboot.ms.repository.DriverRepository;
 import cl.springboot.ms.repository.TruckRepository;
 import cl.springboot.ms.service.DriverService;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@AllArgsConstructor
+//@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 @Slf4j
 public class DriverServiceImpl implements DriverService {
@@ -29,12 +30,16 @@ public class DriverServiceImpl implements DriverService {
 	@Autowired
 	private DriverRepository driverRepository;
 	
-	//@Autowired
+	@Autowired
 	private TruckRepository truckRepository;
 	//private TruckService truckService;
 
 	@Autowired
 	private DriverMapper driverMapper;
+
+	//private IDriverMapper iDriverMapper;
+
+
 
 	@Override
 	public List<DriverResponseDto> findAll() {
@@ -53,7 +58,7 @@ public class DriverServiceImpl implements DriverService {
 
 	@Override
 	public DriverResponseDto save(@Valid DriverRequestDto request) {
-		
+
 		Optional<Driver> driver = driverRepository.findByCode(request.getCode());
 		
 		if(driver.isPresent()) {

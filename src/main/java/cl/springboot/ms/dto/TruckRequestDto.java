@@ -17,8 +17,8 @@ public class TruckRequestDto {
     @NotEmpty(message = "patente no puede ser vacio")
 	private String code;    
 
-	@Schema(example = "1")
-  	@NotNull(message = "conductor no puede ser vacio")
+	//@Schema(example = "1")
+  	//@NotNull(message = "conductor no puede ser vacio")
 	private Long idDriver;
 	
 	private List<Order> order;
